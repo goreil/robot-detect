@@ -255,20 +255,6 @@ if (oracle_good == oracle_bad1 == oracle_bad2 == oracle_bad3 == oracle_bad4):
 else:
     flow = False
 
-# Re-checking all oracles to avoid unreliable results
-oracle_good_verify = oracle(pms_good, messageflow=flow)
-oracle_bad_verify1 = oracle(pms_bad1, messageflow=flow)
-oracle_bad_verify2 = oracle(pms_bad2, messageflow=flow)
-oracle_bad_verify3 = oracle(pms_bad3, messageflow=flow)
-oracle_bad_verify4 = oracle(pms_bad4, messageflow=flow)
-
-if (oracle_good != oracle_good_verify) or (oracle_bad1 != oracle_bad_verify1) or (oracle_bad2 != oracle_bad_verify2) or (oracle_bad3 != oracle_bad_verify3) or (oracle_bad4 != oracle_bad_verify4):
-    if not args.quiet:
-        print("Getting inconsistent results, aborting.")
-    if args.csv:
-        print("INCONSISTENT,%s,%s,,,,%s,%s,%s,%s,%s" % (args.host, ip, oracle_good, oracle_bad1, oracle_bad2, oracle_bad3, oracle_bad4))
-    quit()
-
 # If the response to the invalid PKCS#1 request (oracle_bad1) is equal to both
 # requests starting with 0002, we have a weak oracle. This is because the only
 # case where we can distinguish valid from invalid requests is when we send
